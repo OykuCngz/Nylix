@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Architect | Precision in Every Intention</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-white">
+
+    <div id="landing-page">
+        <nav class="navbar navbar-expand-lg navbar-light py-4 px-5 bg-white border-bottom sticky-top">
+            <div class="container-fluid p-0">
+                <a class="navbar-brand fw-bold fs-4" href="#">The Architect</a>
+                <div class="collapse navbar-collapse justify-content-center">
+                    <ul class="navbar-nav gap-4 small fw-bold text-uppercase ls-1">
+                        <li class="nav-item"><a class="nav-link text-muted" href="#manifesto">Manifesto</a></li>
+                        <li class="nav-item"><a class="nav-link text-muted" href="#features">Features</a></li>
+                        <li class="nav-item"><a class="nav-link text-muted" href="#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <button class="btn btn-dark-blue px-4 py-2 rounded-2 fw-bold text-white shadow-sm" style="background-color: #03045e;" onclick="showAuth('signup')">Enter Workspace</button>
+            </div>
+        </nav>
+
+        <section class="hero-section py-5 d-flex align-items-center relative" style="min-height: 80vh; background-image: radial-gradient(#e5e5e5 1px, transparent 1px); background-size: 40px 40px;">
+            <div class="container px-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-7">
+                        <small class="badge bg-primary-soft text-primary-blue text-uppercase fw-bold ls-1 smallest mb-3 px-3 py-2">Intentional Workspace</small>
+                        <h1 class="display-1 fw-bold mb-4" style="line-height: 1.1; letter-spacing: -0.02em;">Build your vision,<br>task by task.</h1>
+                        <p class="text-muted fs-5 mb-5" style="max-width: 500px;">Experience a workspace designed with the precision of an architect and the clarity of a minimalist.</p>
+                        <div class="d-flex gap-3 align-items-center">
+                            <button class="btn btn-dark-blue px-5 py-3 rounded-2 fw-bold shadow-lg text-white" style="background-color: #03045e;" onclick="showAuth('signup')">Start Designing</button>
+                            <button class="btn btn-light px-4 py-3 border-0 fw-bold d-flex align-items-center gap-2" onclick="location.href='#manifesto'"><i class="bi bi-play-circle fs-4 text-primary-blue"></i> Begin the Journey</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="auth-container" class="d-none login-mode vh-100 w-100 position-fixed top-0 start-0 z-3">
+        <div class="row g-0 h-100">
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="h-100 w-100 position-relative">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1000" class="w-100 h-100 object-fit-cover grayscale" style="filter: brightness(0.4);">
+                    <div class="position-absolute top-50 start-50 translate-middle text-white text-center w-75">
+                        <h2 class="display-5 fw-bold mb-4 ls-1">The Architect</h2>
+                        <p class="text-white-50 fs-5">Construct your vision with precision. Manage your architectural intents in a unified workspace of intention.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 bg-white overflow-y-auto h-100 d-flex flex-column">
+                <div class="auth-form-wrapper p-5 my-auto mx-auto" style="width: 100%; max-width: 480px;">
+                    <div class="mb-5">
+                        <h2 class="fw-bold mb-2" id="auth-title">Sign In</h2>
+                        <p class="text-muted">Enter your credentials to access your intentional workspace.</p>
+                        <div id="auth-error" class="d-none mt-4 p-3 text-danger bg-danger bg-opacity-10 rounded-3 smallest fw-bold d-flex align-items-center gap-2 border border-danger border-opacity-25">
+                            <i class="bi bi-exclamation-circle-fill"></i>
+                            <span id="auth-error-text"></span>
+                        </div>
+                    </div>
+
+                    <form id="auth-form">
+                        <div id="register-fields" class="d-none mb-4">
+                            <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Architect Name</label>
+                            <input type="text" id="username" class="form-control py-3 bg-light border-0 rounded-3">
+                        </div>
+                        <div class="mb-4">
+                            <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Email Address</label>
+                            <input type="email" id="email" class="form-control py-3 bg-light border-0 rounded-3" required>
+                        </div>
+                        <div class="mb-5">
+                            <div class="d-flex justify-content-between">
+                                <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Security Key</label>
+                                <a href="#" class="smallest fw-bold text-muted text-decoration-none">Recovery?</a>
+                            </div>
+                            <input type="password" id="password" class="form-control py-3 bg-light border-0 rounded-3" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark-blue w-100 py-3 rounded-3 fw-bold text-white shadow-lg mb-4" style="background-color: #03045e;">
+                            Authenticate Instance
+                        </button>
+
+                        <div class="text-center">
+                            <p class="small text-muted">
+                                <span id="auth-switch-text">New to the platform?</span> 
+                                <a href="#" id="toggle-auth" class="fw-bold text-dark-blue text-decoration-none" style="color: #03045e;">Initialize Account</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-container" class="d-none">
+        <div class="d-flex vh-100 overflow-hidden">
+            <div id="sidebar-wrapper" class="bg-white border-bottom h-100 py-4 d-flex flex-column" style="width: 280px; border-right: 1px solid #eee;">
+                <div class="px-4 mb-5">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-dark-blue rounded-3 p-2" style="background-color: #03045e;"><i class="bi bi-compass text-white fs-5"></i></div>
+                        <div>
+                            <div class="fw-bold fs-5">The Architect</div>
+                            <div class="smallest text-muted fw-bold text-uppercase ls-1">Workspace of Intentions</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group list-group-flush px-3 flex-grow-1 overflow-y-auto">
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded-3" onclick="switchView('dashboard')"><i class="bi bi-grid me-3"></i>Dashboard</a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded-3" onclick="switchView('projects')"><i class="bi bi-layers me-3"></i>Projects</a>
+                    <hr class="my-2 border-secondary opacity-10">
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded-3" onclick="switchView('inbox')"><i class="bi bi-inbox me-3"></i>Inbox</a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded-3" onclick="switchView('today')"><i class="bi bi-sun me-3"></i>Today</a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded-3" onclick="switchView('upcoming')"><i class="bi bi-calendar me-3"></i>Upcoming</a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded-3" onclick="switchView('completed')"><i class="bi bi-check2-circle me-3"></i>Completed</a>
+                    <hr class="my-2 border-secondary opacity-10">
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded-3" onclick="switchView('integrations')"><i class="bi bi-patch-check me-3"></i>Integrations</a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-3 rounded-3 active mt-2" id="nav-profile" onclick="switchView('profile')"><i class="bi bi-person me-3"></i>Profile</a>
+                </div>
+                <div class="px-3 mt-auto mb-4">
+                    <button class="btn btn-dark-blue w-100 py-3 rounded-3 fw-bold text-white shadow-lg mb-4 d-flex align-items-center justify-content-center gap-2" onclick="openCreateModal()" style="background-color: #3b2ef3;">
+                        <i class="bi bi-plus-lg"></i> Add Task
+                    </button>
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded-3 text-muted smallest fw-bold text-uppercase ls-1"><i class="bi bi-question-circle me-3"></i>Help</a>
+                    <a href="#" class="list-group-item list-group-item-action border-0 py-2 rounded-3 text-muted smallest fw-bold text-uppercase ls-1" id="logout-btn"><i class="bi bi-door-open me-3"></i>Sign Out</a>
+                </div>
+            </div>
+
+            <div class="flex-grow-1 vh-100 overflow-y-auto bg-light-gray-soft">
+                <header class="bg-white border-bottom py-3 px-5 d-flex align-items-center justify-content-between sticky-top">
+                    <h4 class="fw-bold m-0" id="current-view-title">User Profile</h4>
+                    <div class="d-flex align-items-center gap-4">
+                        <div class="dropdown">
+                            <i class="bi bi-bell fs-5 text-muted cursor-pointer" data-bs-toggle="dropdown"></i>
+                        </div>
+                        <div class="dropdown">
+                            <i class="bi bi-gear fs-5 text-muted cursor-pointer" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-3 p-2 rounded-4" style="min-width: 220px;">
+                                <li class="px-3 py-2 text-muted fw-bold text-uppercase ls-1 mb-2" style="font-size: 10px;">Settings</li>
+                                <li><a class="dropdown-item py-2 rounded-3 d-flex align-items-center gap-3" href="#" onclick="switchView('account-settings')"><i class="bi bi-person-gear text-muted"></i> Profile Settings</a></li>
+                                <li><a class="dropdown-item py-2 rounded-3 d-flex align-items-center gap-3" href="#"><i class="bi bi-palette text-muted"></i> Appearance</a></li>
+                                <li><a class="dropdown-item py-2 rounded-3 d-flex align-items-center gap-3" href="#" onclick="switchView('notifications-settings')"><i class="bi bi-bell text-muted"></i> Notifications</a></li>
+                                <li><hr class="dropdown-divider opacity-5"></li>
+                                <li><a class="dropdown-item py-2 rounded-3 d-flex align-items-center gap-3 text-danger" href="#" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Sign Out</a></li>
+                            </ul>
+                        </div>
+                        <div class="user-avatar" style="width: 35px; height: 35px;"><img src="https://i.pravatar.cc/150?u=julian" class="w-100 rounded-circle" alt="JS"></div>
+                    </div>
+                </header>
+                <main class="p-5">
+                    <div id="dashboard-view" class="view-section">
+                        <div class="row g-5">
+                            <div class="col-lg-8">
+                                <div class="welcome-section mb-5">
+                                    <h1 class="display-5 fw-bold mb-2">Workspace Overview</h1>
+                                    <p class="text-muted">Analysis of your architectural productivity and intentional outcomes.</p>
+                                </div>
+
+                                <div class="row g-4 mb-5">
+                                    <div class="col-md-6">
+                                        <div class="card border-0 shadow-sm rounded-4 p-5 h-100 glass-card">
+                                            <h6 class="smallest fw-bold text-uppercase ls-2 text-muted mb-4">Performance Velocity</h6>
+                                            <canvas id="velocityChart" height="200"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card border-0 shadow-sm rounded-4 p-5 h-100 bg-dark-blue text-white" style="background-color: #03045e;">
+                                            <h6 class="smallest fw-bold text-uppercase ls-2 opacity-50 mb-4">Focus Outcome</h6>
+                                            <div class="d-flex align-items-center gap-4">
+                                                <div class="circular-chart" style="width: 100px;">
+                                                    <svg viewBox="0 0 36 36" class="circular-svg">
+                                                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#ffffff22" stroke-width="3" />
+                                                        <path class="circle" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="0, 100" />
+                                                    </svg>
+                                                </div>
+                                                <div>
+                                                    <div class="display-6 fw-bold mb-0" id="stat-efficiencyScore">...</div>
+                                                    <div class="smallest opacity-50 efficiency-rank">ANALYZING...</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="card border-0 shadow-sm rounded-4 p-5 mb-4">
+                                    <h6 class="smallest fw-bold text-uppercase ls-2 text-muted mb-4">Intent Count</h6>
+                                    <div class="display-3 fw-bold mb-2" id="stat-completedCount">0</div>
+                                    <p class="smallest text-muted">Completed architectural intents this week. You are <span class="text-success fw-bold">+0%</span> above baseline.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="projects-view" class="view-section d-none">
+                        <div class="welcome-section mb-5">
+                            <h1 class="display-5 fw-bold mb-2">Active Blueprints</h1>
+                            <p class="text-muted">High-level overview of your structural project scaffolding.</p>
+                        </div>
+                        <div class="alert alert-light border-0 shadow-sm rounded-4 p-5 text-center">
+                            <i class="bi bi-layers fs-1 text-muted mb-3 d-block"></i>
+                            <h4 class="fw-bold">No Projects Defined</h4>
+                            <p class="text-muted">Start by grouping your intents into a new project scaffolding.</p>
+                            <button class="btn btn-dark-blue px-4 py-2 rounded-3 mt-3 shadow-sm text-white" style="background-color: #03045e;">Create Project</button>
+                        </div>
+                    </div>
+
+                    <div id="schedule-view" class="view-section d-none">
+                        <div class="welcome-section mb-5">
+                            <h1 class="display-5 fw-bold mb-2">Timeline Analysis</h1>
+                            <p class="text-muted">Your architectural schedule and upcoming milestones.</p>
+                        </div>
+                        <div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+                            <i class="bi bi-calendar4-week fs-1 text-muted mb-3 d-block"></i>
+                            <p class="text-muted">Timeline view is being optimized for precision.</p>
+                        </div>
+                    </div>
+
+                    <div id="tasks-view" class="view-section d-none pb-5">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <div>
+                                <h1 class="display-4 fw-bold mb-1" style="color: #03045e; letter-spacing: -0.03em;" id="tasks-page-title">Inbox</h1>
+                                <p class="text-muted fs-5" id="tasks-page-subtitle">Capture everything, organize later.</p>
+                            </div>
+                            <button class="btn text-dark px-4 py-2 border-0 rounded-3 fw-bold shadow-sm hover-bg-light" style="background-color: #f0f1f5;" onclick="cleanUpTasks()">
+                                <i class="bi bi-trash3-fill me-2" style="color: #3b2ef3;"></i> Clean Up
+                            </button>
+                        </div>
+                        
+                        <div class="card border-0 shadow-sm rounded-4 mb-4" style="cursor: text;" onclick="openCreateModal()">
+                            <div class="card-body p-4 d-flex align-items-center justify-content-between">
+                                <span class="text-muted fw-semibold fs-5" style="opacity: 0.6;">What is the next intention?</span>
+                                <div class="d-flex gap-4 text-muted fs-5" style="opacity: 0.6;">
+                                    <i class="bi bi-calendar"></i>
+                                    <i class="bi bi-tag-fill"></i>
+                                    <i class="bi bi-flag-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="todo-list-container" class="d-flex flex-column gap-3">
+                        </div>
+                    </div>
+
+                    <div id="integrations-view" class="view-section d-none">
+                        <h2 class="fw-bold mb-2">Workspace Integrations</h2>
+                        <p class="text-muted small mb-5">Connect your architectural toolkit. Seamlessly sync your assets, schedules, and communications to build a unified workspace of intention.</p>
+
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm rounded-4 p-5 h-100 position-relative">
+                                    <span class="position-absolute top-0 end-0 m-4 badge bg-success-soft text-success px-3 py-2 rounded-pill fw-bold smallest"><i class="bi bi-circle-fill me-1" style="font-size: 6px;"></i> CONNECTED</span>
+                                    <div class="bg-primary-soft text-primary-dark p-3 rounded-3 d-inline-block mb-4" style="width: 50px; height:50px;"><i class="bi bi-cloud-fill fs-4"></i></div>
+                                    <h5 class="fw-bold mb-3">Google Drive</h5>
+                                    <p class="smallest text-muted mb-5">Sync architectural blueprints and project documentation directly to your tasks.</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                                        <span class="smallest text-muted">Last sync: 2m ago</span>
+                                        <a href="#" class="smallest fw-bold text-dark-blue text-decoration-none">Manage</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm rounded-4 p-5 h-100">
+                                    <div class="text-end mb-4"><span class="badge bg-light text-muted px-3 py-2 rounded-pill fw-bold smallest">CONNECT</span></div>
+                                    <div class="bg-primary-soft text-primary-dark p-3 rounded-3 d-inline-block mb-4" style="width: 50px; height:50px;"><i class="bi bi-folder-fill fs-4"></i></div>
+                                    <h5 class="fw-bold mb-3">Dropbox</h5>
+                                    <p class="smallest text-muted mb-0">Access heavy-duty CAD files and high-resolution renders from any device.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm rounded-4 p-5 h-100 bg-dark-blue text-white" style="background-color: #03045e;">
+                                    <div class="bg-white bg-opacity-25 p-3 rounded-3 d-inline-block mb-4" style="width: 50px; height:50px;"><i class="bi bi-lightning-fill fs-4"></i></div>
+                                    <h4 class="fw-bold mb-3">Automate with Slack</h4>
+                                    <p class="smallest opacity-75 mb-5">Push project updates, task completions, and deadline alerts directly to your team channels.</p>
+                                    <button class="btn btn-white w-100 py-3 rounded-3 fw-bold small shadow-sm bg-white">Configure Webhooks</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h6 class="smallest fw-bold text-uppercase ls-2 text-muted mb-4">Calendars & Scheduling</h6>
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm rounded-4 p-4 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="bg-light rounded-3 p-3"><i class="bi bi-calendar-event-fill text-danger"></i></div>
+                                        <div>
+                                            <div class="fw-bold small">Google Calendar</div>
+                                            <div class="smallest text-muted">2 linked calendars</div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="smallest fw-bold text-primary-blue text-decoration-none">Disconnect</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm rounded-4 p-4 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="bg-light rounded-3 p-3"><i class="bi bi-calendar-check-fill text-primary"></i></div>
+                                        <div>
+                                            <div class="fw-bold small">Outlook</div>
+                                            <div class="smallest text-muted">Corporate schedule</div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="smallest fw-bold text-muted text-decoration-none">Connect</a>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card border-0 shadow-sm rounded-4 p-4 d-flex flex-row align-items-center justify-content-between">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="bg-light rounded-3 p-3"><i class="bi bi-camera-video-fill text-purple"></i></div>
+                                        <div>
+                                            <div class="fw-bold small">Zoom Pro</div>
+                                            <div class="smallest text-muted">Auto-link meetings</div>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="smallest fw-bold text-muted text-decoration-none">Connect</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm rounded-4 p-5 d-flex flex-row align-items-center justify-content-between" style="background-color: #f8f9fa;">
+                            <div class="d-flex align-items-center gap-4">
+                                <div class="bg-dark rounded-3 p-3 text-white"><i class="bi bi-terminal-fill fs-4"></i></div>
+                                <div>
+                                    <h5 class="fw-bold mb-1">Custom API Integrations</h5>
+                                    <p class="text-muted small m-0">Looking for something else? Build your own bridges with our architectural API.</p>
+                                </div>
+                            </div>
+                            <button class="btn btn-light bg-white border px-4 py-2 rounded-3 fw-bold small">Documentation</button>
+                        </div>
+                    </div>
+                    <div id="account-settings-view" class="view-section d-none">
+                        <div class="row g-5">
+                            <div class="col-lg-8">
+                                <h2 class="fw-bold mb-2">Account Settings</h2>
+                                <p class="text-muted small mb-5">Manage your architectural workspace identity, security preferences, and account health in one centralized hub.</p>
+
+                                <div class="card border-0 shadow-sm rounded-4 p-5 mb-4">
+                                    <div class="d-flex align-items-center gap-3 mb-4">
+                                        <div class="bg-primary-soft text-primary-dark p-2 rounded-2"><i class="bi bi-envelope-fill"></i></div>
+                                        <h5 class="fw-bold m-0">Email Address</h5>
+                                    </div>
+                                    <div class="row align-items-end g-3">
+                                        <div class="col-md-7">
+                                            <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Primary Email</label>
+                                            <input type="text" class="form-control py-3 bg-light border-0 rounded-3 text-muted" value="alex.sterling@architect.io" readonly>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <span class="badge bg-success-soft text-success px-3 py-2 rounded-pill fw-bold smallest"><i class="bi bi-patch-check-fill me-1"></i> Verified</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-link p-0 mt-4 smallest fw-bold text-decoration-none" style="color:#03045e;">+ Add secondary email</button>
+                                </div>
+
+                                <div class="card border-0 shadow-sm rounded-4 p-5 mb-4">
+                                    <div class="d-flex align-items-center gap-3 mb-4">
+                                        <div class="bg-primary-soft text-primary-dark p-2 rounded-2"><i class="bi bi-lock-fill"></i></div>
+                                        <h5 class="fw-bold m-0">Security & Password</h5>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Current Password</label>
+                                        <input type="password" class="form-control py-3 bg-light border-0 rounded-3" value="••••••••••••">
+                                    </div>
+                                    <div class="row g-3 mb-5">
+                                        <div class="col-md-6">
+                                            <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">New Password</label>
+                                            <input type="password" class="form-control py-3 bg-light border-0 rounded-3">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Confirm New Password</label>
+                                            <input type="password" class="form-control py-3 bg-light border-0 rounded-3">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center pt-4 border-top">
+                                        <span class="smallest text-muted italic">Last changed: 3 months ago</span>
+                                        <button class="btn btn-dark-blue px-5 py-3 rounded-3 fw-bold text-white shadow-lg" style="background-color: #03045e;">Update Password</button>
+                                    </div>
+                                </div>
+
+                                <div class="card border-0 shadow-sm rounded-4 p-5 border-start border-danger border-4" style="background-color: #fcf8f8;">
+                                    <h5 class="fw-bold mb-2">Danger Zone</h5>
+                                    <p class="text-muted small mb-4">Once you delete your account, there is no going back. Please be certain.</p>
+                                    <button class="btn btn-outline-danger px-4 py-2 fw-bold small bg-white border-light">Delete Account</button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-4">
+                                        <div>
+                                            <h6 class="fw-bold mb-2">Two-Factor Auth</h6>
+                                            <p class="text-muted smallest lh-sm" style="max-width: 200px;">Add an extra layer of security to your account by requiring more than just a password to log in.</p>
+                                        </div>
+                                        <div class="text-muted opacity-25" style="font-size: 3rem;"><i class="bi bi-shield-lock"></i></div>
+                                    </div>
+                                    <div class="bg-light-blue-soft rounded-3 p-3 d-flex align-items-center justify-content-between mb-3">
+                                        <span class="smallest fw-bold text-dark-blue">2FA Toggle</span>
+                                        <div class="form-check form-switch"><input class="form-check-input custom-switch" type="checkbox" checked></div>
+                                    </div>
+                                    <small class="text-muted smallest italic text-center d-block">Status: <span class="text-primary-blue fw-bold">Active</span> via Authenticator App</small>
+                                </div>
+
+                                <div class="card border-0 shadow-sm rounded-4 p-4 bg-dark-blue text-white mb-4" style="background-color: #0d1117;">
+                                    <h6 class="smallest fw-bold text-uppercase ls-1 opacity-50 mb-4">Active Sessions</h6>
+                                    <div class="list-group list-group-flush mb-4">
+                                        <div class="list-group-item bg-transparent border-0 px-0 d-flex align-items-center gap-3 py-3 text-white">
+                                            <i class="bi bi-laptop fs-4 opacity-50"></i>
+                                            <div>
+                                                <div class="smallest fw-bold">MacBook Pro 16"</div>
+                                                <div class="smallest opacity-50">San Francisco, USA • Active now</div>
+                                            </div>
+                                        </div>
+                                        <div class="list-group-item bg-transparent border-0 px-0 d-flex align-items-center gap-3 py-3 text-white">
+                                            <i class="bi bi-phone fs-4 opacity-50"></i>
+                                            <div>
+                                                <div class="smallest fw-bold">iPhone 15 Pro</div>
+                                                <div class="smallest opacity-50">San Francisco, USA • 2h ago</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-outline-light border-white border-opacity-25 w-100 py-3 rounded-3 smallest fw-bold text-uppercase ls-1">Sign out all other sessions</button>
+                                </div>
+
+                                <div class="rounded-4 overflow-hidden" style="height: 250px;">
+                                    <img src="https://images.unsplash.com/photo-1503387762-592dea58f21f?auto=format&fit=crop&q=80&w=400" class="w-100 h-100 object-fit-cover grayscale brightness-50" alt="Architectural Plans">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="notifications-settings-view" class="view-section d-none">
+                        <div class="row g-5 mb-5">
+                            <div class="col-lg-8">
+                                <h2 class="fw-bold mb-5">Notification Settings</h2>
+                                
+                                <div class="mb-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div>
+                                            <h6 class="smallest fw-bold text-uppercase ls-2 text-muted mb-1">Push Alerts</h6>
+                                            <p class="text-muted small">Manage how 'The Architect' communicates directly with your device.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                                        <div class="p-4 border-bottom d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="bg-primary-soft rounded-3 p-2 text-primary-dark"><i class="bi bi-check-square-fill"></i></div>
+                                                <div>
+                                                    <div class="fw-bold small">Task Completion</div>
+                                                    <div class="smallest text-muted">Notify when team members mark tasks as finished.</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-check form-switch"><input class="form-check-input custom-switch" type="checkbox" checked></div>
+                                        </div>
+                                        <div class="p-4 border-bottom d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="bg-light rounded-3 p-2 text-muted"><i class="bi bi-arrow-repeat"></i></div>
+                                                <div>
+                                                    <div class="fw-bold small">Project Updates</div>
+                                                    <div class="smallest text-muted">Receive alerts for structural or timeline changes.</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-check form-switch"><input class="form-check-input custom-switch" type="checkbox" checked></div>
+                                        </div>
+                                        <div class="p-4 d-flex align-items-center justify-content-between">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="bg-light rounded-3 p-2 text-muted"><i class="bi bi-chat-left-fill"></i></div>
+                                                <div>
+                                                    <div class="fw-bold small">Direct Mentions</div>
+                                                    <div class="smallest text-muted">Real-time alerts when you are tagged in comments.</div>
+                                                </div>
+                                            </div>
+                                            <div class="form-check form-switch"><input class="form-check-input custom-switch" type="checkbox" checked></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-0">
+                                    <h6 class="smallest fw-bold text-uppercase ls-2 text-muted mb-1">Email Intelligence</h6>
+                                    <p class="text-muted small mb-4">Scheduled summaries and detailed activity reports.</p>
+                                    <div class="row g-4">
+                                        <div class="col-md-6">
+                                            <div class="card border-0 shadow-sm rounded-4 p-4 border-start border-4 border-success">
+                                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                                    <div class="bg-success-soft text-success p-2 rounded-2"><i class="bi bi-file-earmark-medical-fill"></i></div>
+                                                    <div class="form-check form-switch"><input class="form-check-input custom-switch" type="checkbox" checked></div>
+                                                </div>
+                                                <h6 class="fw-bold mb-2">Weekly Blueprint</h6>
+                                                <p class="smallest text-muted m-0">A strategic overview of all projects delivered every Monday morning.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="card border-0 shadow-sm rounded-4 p-4">
+                                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                                    <div class="bg-light text-muted p-2 rounded-2"><i class="bi bi-inbox-fill"></i></div>
+                                                    <div class="form-check form-switch"><input class="form-check-input custom-switch" type="checkbox"></div>
+                                                </div>
+                                                <h6 class="fw-bold mb-2">Daily Digest</h6>
+                                                <p class="smallest text-muted m-0">Compressed activity log for the last 24 hours of task movements.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="card border-0 shadow-sm rounded-4 p-4 mb-4" style="background-color: #f8faff;">
+                                    <h6 class="smallest fw-bold text-uppercase ls-2 text-muted mb-1">Atmosphere</h6>
+                                    <p class="text-muted smallest mb-4">Configure audio feedback cues.</p>
+                                    
+                                    <div class="mb-4">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="smallest fw-bold text-muted">System Sound Volume</span>
+                                            <span class="smallest fw-bold text-primary-dark">85%</span>
+                                        </div>
+                                        <div class="progress rounded-pill" style="height: 6px;">
+                                            <div class="progress-bar" style="width: 85%; background-color: #03045e;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="list-group list-group-flush mb-4">
+                                        <div class="list-group-item bg-transparent border-0 px-0 d-flex align-items-center justify-content-between py-2">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="bg-white rounded-circle shadow-sm p-2 d-flex align-items-center justify-content-center" style="width:35px; height:35px;"><i class="bi bi-volume-up smallest"></i></div>
+                                                <div>
+                                                    <div class="smallest fw-bold">Task Ping</div>
+                                                    <div class="smallest text-muted" style="font-size: 9px;">Discrete architectural tone</div>
+                                                </div>
+                                            </div>
+                                            <i class="bi bi-check-circle-fill text-dark-blue"></i>
+                                        </div>
+                                        <div class="list-group-item bg-transparent border-0 px-0 d-flex align-items-center justify-content-between py-2">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="bg-white rounded-circle shadow-sm p-2 d-flex align-items-center justify-content-center" style="width:35px; height:35px;"><i class="bi bi-play-fill smallest"></i></div>
+                                                <div>
+                                                    <div class="smallest fw-bold">Project Pulse</div>
+                                                    <div class="smallest text-muted" style="font-size: 9px;">Low-frequency rumble</div>
+                                                </div>
+                                            </div>
+                                            <i class="bi bi-circle text-muted opacity-25"></i>
+                                        </div>
+                                    </div>
+
+                                    <h6 class="smallest fw-bold text-uppercase ls-2 text-muted mb-1">Quiet Hours</h6>
+                                    <div class="bg-white rounded-3 p-3 d-flex align-items-center justify-content-between mb-4 shadow-inner">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <i class="bi bi-moon-stars-fill text-muted smallest"></i>
+                                            <span class="smallest fw-bold">22:00 — 07:00</span>
+                                        </div>
+                                        <button class="btn btn-link btn-sm p-0 smallest fw-bold text-decoration-none" style="color:#03045e;">Edit</button>
+                                    </div>
+
+                                    <button class="btn btn-dark-blue w-100 py-3 rounded-3 fw-bold text-white shadow-lg mb-3" style="background-color: #03045e;">Save Preferences</button>
+                                    
+                                    <div class="position-relative rounded-4 overflow-hidden mt-3" style="height: 150px;">
+                                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=400" class="w-100 h-100 object-fit-cover opacity-75" style="filter: grayscale(1);">
+                                        <div class="position-absolute bottom-0 p-3 bg-gradient-dark w-100" style="background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);">
+                                            <p class="text-white smallest fw-bold mb-0 lh-sm">"Design is not just what it looks like and feels like. Design is how it works."</p>
+                                            <small class="text-white-50 mt-1 d-block" style="font-size: 8px;">— The Architect Philosophy</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card border-0 shadow-sm rounded-4 p-5" style="background-color: #f1f4f9;">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <h5 class="fw-bold mb-2">Data Privacy & Privacy</h5>
+                                    <p class="text-muted small m-0" style="max-width: 600px;">Notifications are encrypted and processed locally where possible. We never share your project activity with third-party advertising networks. Your focus is our priority.</p>
+                                </div>
+                                <div class="d-flex gap-3">
+                                    <button class="btn btn-white bg-white px-4 py-3 rounded-3 fw-bold small shadow-sm">View Log</button>
+                                    <button class="btn btn-primary-soft text-primary-dark px-4 py-3 rounded-3 fw-bold small">Privacy Policy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg p-5 rounded-4">
+                <div class="modal-header border-0 pb-0 justify-content-between">
+                    <div>
+                        <h3 class="fw-bold mb-1">Architect New Intent</h3>
+                        <p class="text-muted small">Construct a new structural task for your workflow.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    <form id="add-intent-form" class="needs-validation" novalidate>
+                        <div id="task-error" class="d-none mb-4 p-3 text-danger bg-danger bg-opacity-10 rounded-3 smallest fw-bold d-flex align-items-center gap-2 border border-danger border-opacity-25">
+                            <i class="bi bi-exclamation-circle-fill"></i>
+                            <span id="task-error-text"></span>
+                        </div>
+                        <div class="mb-4">
+                            <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Intent Title</label>
+                            <input type="text" id="intent-title" class="form-control py-3 bg-light border-0 rounded-3" required>
+                            <div class="invalid-feedback mt-2 fw-bold smallest">A structural title is required to initialize this intent.</div>
+                        </div>
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Target Completion</label>
+                                <input type="date" id="intent-date" class="form-control py-3 bg-light border-0 rounded-3" required>
+                                <div class="invalid-feedback mt-2 fw-bold smallest">Please specify a target date.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Priority Level</label>
+                                <div class="d-flex gap-3 h-100 align-items-center bg-light rounded-3 px-3">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="priority" id="pri-low" value="low" checked>
+                                        <label class="form-check-label smallest fw-bold text-muted fw-bold" for="pri-low">Low</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="priority" id="pri-med" value="medium">
+                                        <label class="form-check-label smallest fw-bold text-warning" for="pri-med">Mid</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="priority" id="pri-high" value="high">
+                                        <label class="form-check-label smallest fw-bold text-danger" for="pri-high">High</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Architectural Notes</label>
+                            <textarea id="intent-desc" class="form-control py-3 bg-light border-0 rounded-3" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0 pt-0 gap-4">
+                    <button type="button" class="btn text-muted fw-bold" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" form="add-intent-form" class="btn btn-dark-blue px-5 py-3 rounded-3 fw-bold text-white shadow-lg d-flex align-items-center gap-2" style="background-color: #3b2ef3;">
+                        <i class="bi bi-plus-lg"></i> Finalize Intent
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="profileSettingsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0 shadow-lg p-5 rounded-4">
+                <div class="modal-header border-0 pb-0 justify-content-between">
+                    <div>
+                        <h3 class="fw-bold mb-1">Architect Settings</h3>
+                        <p class="text-muted small">Update your professional identity and workspace preferences.</p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-4">
+                    <form id="profile-settings-form">
+                        <div class="d-flex align-items-center gap-4 mb-5 pb-4 border-bottom">
+                            <div class="position-relative">
+                                <img src="https://i.pravatar.cc/300?u=julian" class="rounded-4" style="width: 100px; height: 100px; object-fit: cover;" alt="Avatar">
+                                <button type="button" class="btn btn-dark-blue btn-sm position-absolute bottom-0 end-0 rounded-circle border border-white border-2 p-2" style="background-color:#03045e;"><i class="bi bi-camera text-white"></i></button>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-1">Structural Portrait</h6>
+                                <p class="smallest text-muted mb-3">Recommended: 400x400px square image.</p>
+                                <button type="button" class="btn btn-outline-light-gray btn-sm fw-bold px-3">Upload New Photo</button>
+                            </div>
+                        </div>
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Display Name</label>
+                                <input type="text" class="form-control py-3 border-light-gray rounded-3" id="settings-name" value="Julian Sterling">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Professional Title</label>
+                                <input type="text" class="form-control py-3 border-light-gray rounded-3" id="settings-title" value="Senior Strategy Architect">
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Architectural Bio</label>
+                            <textarea class="form-control py-3 border-light-gray rounded-3" id="settings-bio" rows="3">Constructing systems of productivity through intentional design and deep focus. Specialized in complex project scaffolding and cognitive workflow optimization.</textarea>
+                        </div>
+                        <hr class="my-5 opacity-5">
+                        <h6 class="fw-bold mb-4 d-flex align-items-center gap-2"><i class="bi bi-shield-lock"></i> Security & Core Credentials</h6>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">Email Address</label>
+                                <input type="email" class="form-control py-3 border-light-gray rounded-3" id="settings-email" value="julian@architect.io">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="smallest fw-bold text-uppercase ls-1 text-muted mb-2">New Password</label>
+                                <input type="password" class="form-control py-3 border-light-gray rounded-3" id="settings-pass" placeholder="Leave blank to keep current">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer border-0 pt-0 gap-4">
+                    <button type="button" class="btn text-muted fw-bold" data-bs-dismiss="modal">Discard</button>
+                    <button type="button" class="btn btn-dark-blue px-5 py-3 rounded-3 fw-bold text-white shadow-lg d-flex align-items-center gap-2" onclick="saveProfileSettings()" style="background-color: #03045e;">
+                        <i class="bi bi-check2"></i> Update Architecture
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

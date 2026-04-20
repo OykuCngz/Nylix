@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Color Palette - Architect Minimalist */
+  --nylix-bg: #f8f9fc;
+  --nylix-white: #ffffff;
+  --nylix-black: #0f172a;
+  --nylix-gray-50: #f1f5f9;
+  --nylix-gray-100: #e2e8f0;
+  --nylix-gray-400: #94a3b8;
+  --nylix-gray-600: #475569;
+  
+  /* Primary Accents - Deep Navy & Sea Green */
+  --nylix-primary: #03045e;
+  --nylix-accent: #2d6a4f; /* Pinterest-style Sea Green */
+  --nylix-accent-soft: rgba(45, 106, 79, 0.08);
+  
+  /* Spacing */
+  --sidebar-width: 280px;
+  --card-radius: 16px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background-color: var(--nylix-bg);
+  color: var(--nylix-black);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .font-heading {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Typography Utilities */
+.ls-1 { letter-spacing: 0.05em; }
+.ls-2 { letter-spacing: 0.15em; }
+.smallest { font-size: 0.7rem; }
+.text-muted { color: var(--nylix-gray-600) !important; }
+
+/* Premium Layout Elements */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.04);
+  transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.08);
+}
+
+.bg-dark-blue {
+  background: linear-gradient(135deg, #03045e 0%, #020336 100%);
+  color: white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--nylix-gray-100);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--nylix-gray-400);
+}
+
+/* Animations */
+.view-section {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button Refinement */
+.btn-premium {
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary-nylix {
+  background-color: var(--nylix-primary);
+  color: white;
+  border: none;
+}
+
+.btn-primary-nylix:hover {
+  background-color: var(--nylix-black);
+  transform: scale(1.02);
+}
+
+/* Dashboard Specifics */
+.circular-chart {
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.2));
+}
+
+.efficiency-rank {
+  background: rgba(255,255,255,0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
