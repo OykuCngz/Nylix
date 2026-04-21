@@ -292,72 +292,112 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
             <div className="modal-content border-0 shadow-2xl rounded-5 overflow-hidden" 
                  style={{ maxHeight: '90vh', backgroundColor: '#fff' }}>
               
-              <div className="modal-header border-0 p-4 pb-0 d-flex justify-content-between align-items-center">
-                 <h2 className="font-heading fw-bold m-0 fs-4 text-dark">Group Your Intentions</h2>
+              <div className="modal-header border-0 p-4 pb-0 d-flex justify-content-between align-items-center bg-white">
+                 <div className="d-flex align-items-center gap-3">
+                    <div className="bg-success rounded-circle" style={{ width: '12px', height: '12px' }}></div>
+                    <h2 className="font-heading fw-bold m-0 fs-4 text-dark ls-2">VISION BOARD</h2>
+                 </div>
                  <button className="btn-close shadow-none" onClick={() => setShowModal(false)}></button>
               </div>
               
-              <div className="modal-body p-4 pt-1">
+              <div className="modal-body p-4 p-lg-5 pt-3">
                 <form onSubmit={handleCreate}>
                   <div className="row g-4 align-items-start">
-                    <div className="col-lg-7">
-                      <div className="row g-3">
-                        <div className="col-md-6">
-                          <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-1">Intent Title</label>
-                          <input type="text" className="form-control py-2 bg-light border-0 rounded-3 px-3 shadow-none" required 
+                    <div className="col-lg-6">
+                      <div className="row g-4">
+                        <div className="col-12">
+                          <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-2 d-flex align-items-center">
+                            <i className="bi bi-fonts me-2"></i> Intent Label
+                          </label>
+                          <input type="text" className="form-control py-3 bg-light border-0 rounded-4 px-4 shadow-none focus-ring-success" 
+                                 placeholder="Project Name..." required 
                                  value={newVision.title} onChange={e => setNewVision({...newVision, title: e.target.value})} />
                         </div>
-                        <div className="col-md-6">
-                          <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-1">Architecture</label>
-                          <input type="text" className="form-control py-2 bg-light border-0 rounded-3 px-3 shadow-none" 
-                                 value={newVision.category} onChange={e => setNewVision({...newVision, category: e.target.value})} />
-                        </div>
+                        
                         <div className="col-12">
-                          <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-1">Pattern</label>
+                          <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-2 d-flex align-items-center">
+                            <i className="bi bi-grid-3x3-gap me-2"></i> Design Geometry
+                          </label>
                           <div className="d-flex gap-2">
-                             {['focus', 'grid', 'mosaic'].map(l => (
-                               <button key={l} type="button" 
-                                       className={`btn flex-grow-1 py-2 rounded-3 border-2 transition-all shadow-none smallest fw-bold ${newVision.layout === l ? 'border-success bg-light text-success' : 'border-light text-muted'}`}
-                                       style={{ textTransform: 'capitalize' }}
-                                       onClick={() => setNewVision({...newVision, layout: l})}>
-                                 {l}
+                             {[
+                               {id: 'focus', icon: 'bi-aspect-ratio'},
+                               {id: 'grid', icon: 'bi-grid-fill'},
+                               {id: 'mosaic', icon: 'bi-columns-gap'}
+                             ].map(l => (
+                               <button key={l.id} type="button" 
+                                       className={`btn flex-grow-1 py-3 rounded-4 border-2 transition-all shadow-none d-flex flex-column align-items-center gap-2 ${newVision.layout === l.id ? 'border-success bg-light text-success fw-bold' : 'border-light text-muted opacity-50'}`}
+                                       onClick={() => setNewVision({...newVision, layout: l.id})}>
+                                 <i className={`bi ${l.icon} fs-5`}></i>
+                                 <span className="smallest text-uppercase ls-1" style={{ fontSize: '0.65rem' }}>{l.id}</span>
                                </button>
                              ))}
                           </div>
                         </div>
+
                         <div className="col-12">
-                          <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-1">Assets</label>
-                          <div className="upload-dropzone p-3 rounded-4 border-dashed text-center position-relative bg-light transition-all"
-                               style={{ border: '2px dashed #eee' }}>
-                             <i className="bi bi-plus-circle fs-4 text-muted mb-1 d-block"></i>
-                             <div className="smallest fw-bold text-dark opacity-50">Pin Images</div>
+                          <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-2 d-flex align-items-center">
+                            <i className="bi bi-cloud-arrow-up me-2"></i> Import Visual Assets
+                          </label>
+                          <div className="upload-dropzone p-4 rounded-5 border-dashed text-center position-relative transition-all"
+                               style={{ border: '2px dashed #e0e0e0', backgroundColor: '#fcfcfc' }}>
+                             <div className="p-3 bg-white rounded-circle shadow-sm d-inline-block mb-2">
+                                <i className="bi bi-plus-lg fs-4 text-success"></i>
+                             </div>
+                             <div className="smallest fw-bold text-dark ls-1">CLICK TO PIN ASSETS</div>
+                             <div className="smallest text-muted opacity-75 mt-1">Maximum 6 high-fidelity images</div>
                              <input type="file" className="position-absolute top-0 start-0 w-100 h-100 opacity-0 cursor-pointer" 
                                     multiple onChange={handleFileUpload} accept="image/*" />
                           </div>
                         </div>
+
                         <div className="col-12">
-                          <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-1">Manifesto</label>
-                          <textarea className="form-control py-2 bg-light border-0 rounded-3 px-3 shadow-none" rows="2"
-                                   value={newVision.description} onChange={e => setNewVision({...newVision, description: e.target.value})}
-                                   placeholder="Your intent..."></textarea>
+                          <div className="d-flex justify-content-between align-items-center mb-2">
+                             <label className="smallest fw-bold text-muted text-uppercase ls-2 d-flex align-items-center m-0">
+                               <i className="bi bi-file-earmark-text me-2 text-success"></i> DESIGN MANIFESTO
+                             </label>
+                             <span className="smallest text-muted opacity-50">Drafting philosophy...</span>
+                          </div>
+                          <div className="position-relative">
+                             <textarea className="form-control py-3 bg-light border-0 rounded-5 px-4 shadow-none transition-all" rows="4"
+                                      style={{ 
+                                        lineHeight: '1.8', 
+                                        fontSize: '0.95rem',
+                                        borderLeft: '4px solid transparent',
+                                        backgroundColor: '#fdfdfd'
+                                      }}
+                                      value={newVision.description} onChange={e => setNewVision({...newVision, description: e.target.value})}
+                                      placeholder="Define the philosophy, aesthetic direction, and long-term intent of this vision board..."></textarea>
+                             <div className="position-absolute bottom-0 end-0 m-3 opacity-25">
+                                <i className="bi bi-pencil-square fs-5"></i>
+                             </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                     
-                    <div className="col-lg-5">
-                      <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-2 d-block text-center mt-1">Active Canvas</label>
-                      <div className="preview-canvas rounded-4 overflow-hidden border bg-white position-relative d-flex align-items-center justify-content-center shadow-sm" 
-                           style={{ height: '300px' }}>
+                    <div className="col-lg-6">
+                      <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-3 d-block text-center mt-1">Live Architectural Canvas</label>
+                      <div className="preview-canvas rounded-5 overflow-hidden border position-relative d-flex align-items-center justify-content-center shadow-2xl" 
+                           style={{ 
+                             height: '480px', 
+                             backgroundColor: '#f8f9fa',
+                             backgroundImage: 'linear-gradient(#e9ecef 1px, transparent 1px), linear-gradient(90deg, #e9ecef 1px, transparent 1px)',
+                             backgroundSize: '30px 30px'
+                           }}>
                          {uploading ? (
-                           <div className="spinner-border spinner-border-sm text-success opacity-50"></div>
+                           <div className="text-center">
+                              <div className="spinner-border text-success mb-3" style={{ width: '3rem', height: '3rem' }}></div>
+                              <div className="smallest ls-2 fw-bold text-success">PROCESSING ASSETS...</div>
+                           </div>
                          ) : (
                            renderCollage(newVision.images, newVision.layout, true)
                          )}
                       </div>
-                      <div className="mt-4">
-                         <button type="submit" className="btn btn-premium w-100 py-3 text-white shadow-lg border-0" 
-                                 style={{ backgroundColor: 'var(--nylix-accent)', borderRadius: '18px', fontSize: '1rem', fontWeight: 'bold' }}>
-                            ARCHIVE VISION
+                      
+                      <div className="mt-5">
+                         <button type="submit" className="btn btn-premium w-100 py-4 text-white shadow-lg border-0 transition-all hover-scale" 
+                                 style={{ backgroundColor: 'var(--nylix-accent)', borderRadius: '24px', fontSize: '1.2rem', fontWeight: 'bold', letterSpacing: '2px' }}>
+                            <i className="bi bi-box-arrow-in-down-right me-3"></i> ARCHIVE BOARD
                          </button>
                       </div>
                     </div>
