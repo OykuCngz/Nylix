@@ -217,8 +217,8 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
 
   return (
     <div className="vision-board-wrapper view-section">
-      {/* Search & Header */}
-      <div className="d-flex justify-content-between align-items-center mb-5">
+      {/* Search & Header - Added pt-3 for breathing room from sticky navigation */}
+      <div className="d-flex justify-content-between align-items-center mb-5 pt-3">
         <div>
           <h1 className="font-heading fw-bold mb-0 display-5">Vision Board</h1>
           <p className="text-muted smallest ls-2 text-uppercase fw-bold">Archive of Intentions</p>
@@ -287,10 +287,10 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
 
       {/* Modal - Back to White Premium */}
       {showModal && (
-        <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(10px)' }}>
+        <div className="modal fade show d-block" style={{ backgroundColor: 'rgba(15, 23, 42, 0.7)', backdropFilter: 'blur(8px)', zIndex: 1050, position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', overflowY: 'auto' }}>
           <div className="modal-dialog modal-xl modal-dialog-centered" style={{ maxWidth: '1100px' }}>
             <div className="modal-content border-0 shadow-2xl rounded-5 overflow-hidden" 
-                 style={{ maxHeight: '90vh', backgroundColor: '#fff' }}>
+                 style={{ maxHeight: '95vh', backgroundColor: '#fff', height: 'fit-content' }}>
               
               <div className="modal-header border-0 p-4 pb-0 d-flex justify-content-between align-items-center bg-white">
                  <div className="d-flex align-items-center gap-3">
@@ -300,9 +300,9 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
                  <button className="btn-close shadow-none" onClick={() => setShowModal(false)}></button>
               </div>
               
-              <div className="modal-body p-4 p-lg-5 pt-3">
+              <div className="modal-body p-4 pt-3 pb-0">
                 <form onSubmit={handleCreate}>
-                  <div className="row g-4 align-items-start">
+                  <div className="row g-1 align-items-start">
                     <div className="col-lg-6">
                       <div className="row g-4">
                         <div className="col-12">
@@ -350,36 +350,14 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
                           </div>
                         </div>
 
-                        <div className="col-12">
-                          <div className="d-flex justify-content-between align-items-center mb-2">
-                             <label className="smallest fw-bold text-muted text-uppercase ls-2 d-flex align-items-center m-0">
-                               <i className="bi bi-file-earmark-text me-2 text-success"></i> DESIGN MANIFESTO
-                             </label>
-                             <span className="smallest text-muted opacity-50">Drafting philosophy...</span>
-                          </div>
-                          <div className="position-relative">
-                             <textarea className="form-control py-3 bg-light border-0 rounded-5 px-4 shadow-none transition-all" rows="4"
-                                      style={{ 
-                                        lineHeight: '1.8', 
-                                        fontSize: '0.95rem',
-                                        borderLeft: '4px solid transparent',
-                                        backgroundColor: '#fdfdfd'
-                                      }}
-                                      value={newVision.description} onChange={e => setNewVision({...newVision, description: e.target.value})}
-                                      placeholder="Define the philosophy, aesthetic direction, and long-term intent of this vision board..."></textarea>
-                             <div className="position-absolute bottom-0 end-0 m-3 opacity-25">
-                                <i className="bi bi-pencil-square fs-5"></i>
-                             </div>
-                          </div>
                         </div>
                       </div>
-                    </div>
                     
                     <div className="col-lg-6">
                       <label className="smallest fw-bold text-muted text-uppercase ls-2 mb-3 d-block text-center mt-1">Live Architectural Canvas</label>
                       <div className="preview-canvas rounded-5 overflow-hidden border position-relative d-flex align-items-center justify-content-center shadow-2xl" 
                            style={{ 
-                             height: '480px', 
+                             height: '420px', 
                              backgroundColor: '#f8f9fa',
                              backgroundImage: 'linear-gradient(#e9ecef 1px, transparent 1px), linear-gradient(90deg, #e9ecef 1px, transparent 1px)',
                              backgroundSize: '30px 30px'
@@ -394,9 +372,9 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
                          )}
                       </div>
                       
-                      <div className="mt-5">
-                         <button type="submit" className="btn btn-premium w-100 py-4 text-white shadow-lg border-0 transition-all hover-scale" 
-                                 style={{ backgroundColor: 'var(--nylix-accent)', borderRadius: '24px', fontSize: '1.2rem', fontWeight: 'bold', letterSpacing: '2px' }}>
+                      <div className="mt-4 mb-4">
+                         <button type="submit" className="btn btn-premium w-100 py-3 text-white shadow-lg border-0 transition-all hover-scale" 
+                                 style={{ backgroundColor: 'var(--nylix-accent)', borderRadius: '24px', fontSize: '1.1rem', fontWeight: 'bold', letterSpacing: '2px' }}>
                             <i className="bi bi-box-arrow-in-down-right me-3"></i> ARCHIVE BOARD
                          </button>
                       </div>

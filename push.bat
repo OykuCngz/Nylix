@@ -1,0 +1,9 @@
+@echo off
+echo Adding changes...
+git add .
+echo Committing...
+git commit -m "Refactor: Optimize Vision Board UI, remove Design Manifesto, and refine architectural layout"
+echo Pushing to GitHub...
+git push origin main
+echo Done.
+pause

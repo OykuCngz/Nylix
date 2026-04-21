@@ -10,6 +10,7 @@ const Header = ({ currentView, setView, onLogout }) => {
       case 'completed': return 'Archive of Success';
       case 'integrations': return 'Workspace Integrations';
       case 'blueprint': return 'Structural Blueprint';
+      case 'vision-board': return 'Vision Board Architecture';
       case 'settings':
       case 'account-settings':
       case 'notifications-settings':
@@ -19,7 +20,13 @@ const Header = ({ currentView, setView, onLogout }) => {
   };
 
   return (
-    <header className="bg-white border-bottom py-3 px-5 d-flex align-items-center justify-content-between sticky-top">
+    <header className="border-bottom py-2 px-5 d-flex align-items-center justify-content-between sticky-top transition-all" 
+            style={{ 
+              backgroundColor: 'rgba(244, 245, 248, 0.9)', 
+              backdropFilter: 'blur(15px)',
+              zIndex: 1020,
+              borderBottom: '1px solid rgba(0,0,0,0.05) !important'
+            }}>
       <h4 className="fw-bold m-0">{getTitle()}</h4>
       <div className="d-flex align-items-center gap-4">
         <div className="dropdown">
