@@ -120,6 +120,47 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
     setActiveDragIdx(null);
   };
 
+  const [draggingIndex, setDraggingIndex] = useState(null);
+  const [dragOverIndex, setDragOverIndex] = useState(null);
+
+  const onDragStart = (e, index) => {
+    e.dataTransfer.setData("sourceIndex", index.toString());
+    setDraggingIndex(index);
+  };
+
+  const onDragOver = (e, index) => {
+    e.preventDefault();
+    if (draggingIndex !== index) {
+      setDragOverIndex(index);
+    }
+  };
+
+  const onDrop = (e, targetIndex) => {
+    e.preventDefault();
+    const sourceIndex = parseInt(e.dataTransfer.getData("sourceIndex"));
+    setDraggingIndex(null);
+    setDragOverIndex(null);
+    
+    if (isNaN(sourceIndex) || sourceIndex === targetIndex) return;
+
+    const updatedImages = [...newVision.images];
+    const updatedOffsets = { ...newVision.offsets };
+
+    const tempImg = updatedImages[sourceIndex];
+    updatedImages[sourceIndex] = updatedImages[targetIndex];
+    updatedImages[targetIndex] = tempImg;
+
+    const tempOffset = updatedOffsets[sourceIndex];
+    updatedOffsets[sourceIndex] = updatedOffsets[targetIndex];
+    updatedOffsets[targetIndex] = tempOffset;
+
+    setNewVision({
+        ...newVision,
+        images: updatedImages,
+        offsets: updatedOffsets
+    });
+  };
+
   // Helper to get full image URL
   const getFullUrl = (url) => {
     if (!url) return '';
@@ -148,7 +189,10 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
       return (
         <div className="d-grid h-100 w-100 p-1" style={{ gridTemplateColumns: 'repeat(2, 1fr)', gridTemplateRows: 'repeat(3, 1fr)', gap: '6px' }}>
           {[0, 1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="position-relative group overflow-hidden rounded-2">
+            <div key={i} className={`position-relative group overflow-hidden rounded-2 transition-all ${dragOverIndex === i ? 'ring-2 ring-success' : ''}`}
+                 onDragOver={(e) => isPreview && onDragOver(e, i)}
+                 onDragLeave={() => setDragOverIndex(null)}
+                 onDrop={(e) => isPreview && onDrop(e, i)}>
               {imgs[i] ? (
                 <>
                   <img src={getFullUrl(imgs[i])} 
@@ -157,11 +201,17 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
                        onMouseDown={(e) => isPreview && startDrag(e, i)}
                        alt="" />
                   {isPreview && (
-                    <div className="position-absolute top-0 start-0 w-100 h-100 bg-dark/40 opacity-0 group-hover:opacity-100 d-flex align-items-center justify-content-center gap-2 transition-all">
-                      <button type="button" className="btn btn-sm btn-light p-1" onClick={() => moveImage(i, -1)}><i className="bi bi-chevron-left"></i></button>
-                      <button type="button" className="btn btn-sm btn-light p-1" onClick={() => moveImage(i, 1)}><i className="bi bi-chevron-right"></i></button>
-                      <button type="button" className="btn btn-sm btn-danger p-1" onClick={() => removeImage(i)}><i className="bi bi-trash"></i></button>
-                    </div>
+                    <>
+                       <div className="position-absolute top-0 start-0 m-1 bg-white/80 rounded-circle d-flex align-items-center justify-content-center shadow-sm cursor-grab"
+                            style={{ width: '22px', height: '22px', zIndex: 30 }}
+                            draggable="true"
+                            onDragStart={(e) => onDragStart(e, i)}>
+                          <i className="bi bi-arrows-move smallest text-dark"></i>
+                       </div>
+                       <button type="button" className="btn btn-xs btn-danger position-absolute top-0 end-0 m-1 shadow-sm rounded-circle" 
+                               style={{ width: '22px', height: '22px', padding: 0 }}
+                               onClick={() => removeImage(i)}>×</button>
+                    </>
                   )}
                 </>
               ) : (
@@ -177,31 +227,37 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
     }
     
     if (layout === 'mosaic') {
-      const collageStyles = [
-        { transform: 'rotate(-2deg)', zIndex: 5 },
-        { transform: 'rotate(1.5deg)', zIndex: 4 },
-        { transform: 'rotate(-1deg)', zIndex: 3 },
-        { transform: 'rotate(3deg)', zIndex: 2 },
-        { transform: 'rotate(-3deg)', zIndex: 5 },
-        { transform: 'rotate(2deg)', zIndex: 3 },
-        { transform: 'rotate(-1deg)', zIndex: 4 },
-        { transform: 'rotate(1.5deg)', zIndex: 2 }
+      const scrapbookPositions = [
+        // Top row - 3 columns
+        { top: '12%', left: '8%', width: '30%', height: '32%', rot: '-2deg', z: 5 },
+        { top: '8%', left: '35%', width: '32%', height: '35%', rot: '1deg', z: 4 },
+        { top: '12%', left: '65%', width: '28%', height: '30%', rot: '3deg', z: 3 },
+        // Bottom row - 3 columns, slightly offset
+        { top: '50%', left: '5%', width: '28%', height: '35%', rot: '2deg', z: 6 },
+        { top: '52%', left: '32%', width: '38%', height: '38%', rot: '-1deg', z: 7 },
+        { top: '48%', left: '68%', width: '26%', height: '34%', rot: '4deg', z: 5 }
       ];
 
       return (
-        <div className="d-flex flex-wrap justify-content-center align-items-center gap-2 p-3 h-100 overflow-hidden bg-light/30 collage-grid-canvas" style={{ minHeight: isPreview ? '600px' : '400px' }}>
+        <div className="position-relative w-100 h-100 bg-light/10 overflow-hidden collage-grid-canvas" style={{ minHeight: isPreview ? '600px' : '400px' }}>
           {imgs.map((src, i) => {
-            // Calculate size based on image count to ensure they fit in the tahta (board)
-            const baseWidth = imgs.length > 6 ? '30%' : '45%';
-            const baseHeight = isPreview ? (imgs.length > 6 ? '160px' : '220px') : (imgs.length > 6 ? '110px' : '150px');
-            
+            const pos = scrapbookPositions[i] || scrapbookPositions[i % scrapbookPositions.length];
             return (
               <div key={i} 
-                   className="position-relative shadow-md rounded-2 overflow-hidden collage-item transition-all hover-scale"
+                   className={`position-absolute shadow-premium rounded-2 overflow-hidden collage-item transition-all ${dragOverIndex === i ? 'scale-105 shadow-lg border-success' : ''}`}
+                   onDragOver={(e) => isPreview && onDragOver(e, i)}
+                   onDragLeave={() => setDragOverIndex(null)}
+                   onDrop={(e) => isPreview && onDrop(e, i)}
                    style={{ 
-                     width: i % 4 === 0 ? '38%' : baseWidth, 
-                     height: baseHeight,
-                     ...collageStyles[i % collageStyles.length]
+                     top: pos.top, 
+                     left: pos.left, 
+                     width: pos.width, 
+                     height: pos.height,
+                     zIndex: draggingIndex === i ? 100 : pos.z,
+                     transform: draggingIndex === i ? 'scale(1.05)' : `rotate(${pos.rot})`,
+                     backgroundColor: '#fff',
+                     padding: '4px',
+                     border: dragOverIndex === i ? '2px solid #10b981' : '1px solid #f1f5f9'
                    }}>
                  <img src={getFullUrl(src)} 
                       className="w-100 h-100 object-fit-cover cursor-move" 
@@ -209,20 +265,25 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
                       onMouseDown={(e) => isPreview && startDrag(e, i)}
                       alt="" />
                  {isPreview && (
-                    <button type="button" className="btn btn-xs btn-danger position-absolute top-0 end-0 m-2 shadow-sm rounded-circle" 
-                            style={{ width: '20px', height: '20px', padding: 0, fontSize: '12px' }}
-                            onClick={() => removeImage(i)}>×</button>
+                    <>
+                       <div className="position-absolute top-0 start-0 m-2 bg-white/90 rounded-circle d-flex align-items-center justify-content-center shadow-md cursor-grab"
+                            style={{ width: '26px', height: '26px', zIndex: 30 }}
+                            draggable="true"
+                            onDragStart={(e) => onDragStart(e, i)}>
+                          <i className="bi bi-arrows-move text-dark fs-6"></i>
+                       </div>
+                       <button type="button" className="btn btn-xs btn-danger position-absolute top-0 end-0 m-2 shadow-sm rounded-circle" 
+                               style={{ width: '22px', height: '22px', padding: 0, zIndex: 20 }}
+                               onClick={() => removeImage(i)}>×</button>
+                    </>
                  )}
               </div>
             );
           })}
-          {isPreview && imgs.length < 12 && (
-             <div className="rounded-2 border-2 border-dashed d-flex align-items-center justify-content-center cursor-pointer hover-bg-light"
-                  style={{ width: '80px', height: '80px', backgroundColor: 'rgba(0,0,0,0.02)', borderColor: '#cbd5e1' }}
-                  onClick={() => fileInputRef.current?.click()}>
-                <i className="bi bi-plus fs-3 text-muted"></i>
-             </div>
-          )}
+          
+          {/* Decorative dot grid only for scrapbook mode */}
+          <div className="position-absolute w-100 h-100 top-0 start-0 pointer-events-none opacity-20" 
+               style={{ backgroundImage: 'radial-gradient(#cbd5e1 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
         </div>
       );
     }
@@ -369,31 +430,16 @@ const VisionBoard = ({ onBack, onRequireAuth, showNotification, navigate, setAct
       ) : (
         <div className="pin-container">
           {visions.map(vision => (
-            <div key={vision._id} className="pin-card group mb-4">
-              <div className="pin-content shadow-sm rounded-4 overflow-hidden position-relative" style={{ height: '480px' }}>
+            <div key={vision._id} className="pin-card group mb-5 cursor-pointer" onClick={() => navigate('blueprint')}>
+              <div className="pin-content shadow-premium rounded-4 overflow-hidden shadow-sm transition-all group-hover-scale-102" style={{ height: '480px' }}>
                 {renderCollage(vision.images || [vision.image], vision.layout, false, vision.offsets)}
-                
-                <div className="pin-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-between p-4 opacity-0 group-hover-opacity-100">
-                  <div className="d-flex justify-content-between">
-                    <span className="badge glass-card smallest text-dark px-3 py-2 rounded-pill fw-bold">
-                      {vision.category}
-                    </span>
-                    <button className="btn btn-light rounded-circle shadow-sm d-flex align-items-center justify-content-center" style={{ width: '36px', height: '36px' }}>
-                      <i className="bi bi-pin-angle-fill text-danger"></i>
-                    </button>
-                  </div>
-                  <div>
-                    <h5 className="text-white fw-bold mb-2 font-heading">{vision.title}</h5>
-                    <p className="text-white smallest opacity-75 mb-3">{vision.description}</p>
-                    <button 
-                      className="btn btn-premium w-100 text-white"
-                      style={{ backgroundColor: 'var(--nylix-accent)', borderRadius: '12px' }}
-                      onClick={() => convertToTask(vision)}
-                    >
-                      Initialize Blueprint
-                    </button>
-                  </div>
+              </div>
+              <div className="mt-3 px-2 d-flex justify-content-between align-items-end">
+                <div>
+                  <h5 className="mb-0 fw-bold text-dark fs-6 ls-1 transition-all group-hover-text-primary text-uppercase">{vision.title}</h5>
+                  <span className="smallest text-muted opacity-60 ls-2 text-uppercase">{vision.category || 'Vision Concept'}</span>
                 </div>
+                <div className="smallest fw-bold text-muted opacity-30 ls-1">ARCHIVED</div>
               </div>
             </div>
           ))}
