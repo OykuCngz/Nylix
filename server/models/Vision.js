@@ -6,6 +6,7 @@ const visionSchema = new mongoose.Schema({
     description: { type: String },
     images: [{ type: String }], // Multi-image support
     layout: { type: String, enum: ['focus', 'grid', 'mosaic'], default: 'focus' },
+    offsets: { type: Object, default: {} }, // Panning offsets
     size: { type: String, enum: ['small', 'medium', 'large'], default: 'medium' },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     createdAt: { type: Date, default: Date.now }

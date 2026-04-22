@@ -11,12 +11,14 @@ exports.getVisions = async (req, res) => {
 
 exports.createVision = async (req, res) => {
     try {
-        const { title, category, description, image, size } = req.body;
+        const { title, category, description, images, layout, offsets, size } = req.body;
         const newVision = new Vision({
             title,
             category,
             description,
-            image,
+            images,
+            layout,
+            offsets,
             size,
             user: req.user.id
         });
